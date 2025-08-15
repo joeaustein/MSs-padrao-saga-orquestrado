@@ -7,6 +7,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -15,15 +16,19 @@ import org.springframework.context.annotation.Bean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.config.TopicBuilder;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import static br.com.microservices.orchestrated.orchestratorservice.core.enums.ETopics.*;
 
 @EnableKafka
 @Configuration
 @RequiredArgsConstructor
 public class KafkaConfig {
-    
+
+    private static final Integer PARTITION_COUNT = 1;
+    private static final Integer REPLICA_COUNT = 1;
+        
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
@@ -33,11 +38,12 @@ public class KafkaConfig {
     @Value("${spring.kafka.consumer.auto-offset-reset}")
     private String autoOffsetReset;
 
-    // Definição das configurações do consumer:
+    // Configurações do Consumer
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {  
         return new DefaultKafkaConsumerFactory<>(consumerProps());
     }
+
     private Map<String, Object> consumerProps() {
         var props = new HashMap<String, Object>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -48,11 +54,12 @@ public class KafkaConfig {
         return props;
     }
 
-    // Definição das configurações do producer:
+    // Configurações do Producer
     @Bean
     public ProducerFactory<String, String> producerFactory() {  
         return new DefaultKafkaProducerFactory<>(producerProps());
     }
+
     private Map<String, Object> producerProps() {
         var props = new HashMap<String, Object>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -66,5 +73,46 @@ public class KafkaConfig {
         return new KafkaTemplate<>(producerFactory);
     }
 
-}
+    private NewTopic buildTopic(String name) {
+        return TopicBuilder
+            .name(name)
+            .replicas(REPLICA_COUNT)
+            .partitions(PARTITION_COUNT)
+            .build();
+    }
 
+    // Beans de tópicos
+    @Bean public NewTopic startSagaTopic() { 
+        return buildTopic(START_SAGA.getTopic()); 
+    }
+    @Bean public NewTopic orchestratorTopic() { 
+        return buildTopic(BASE_ORCHESTRATOR.getTopic()); 
+    }
+    @Bean public NewTopic finishSuccessTopic() { 
+        return buildTopic(FINISH_SUCCESS.getTopic()); 
+    }
+    @Bean public NewTopic finishFailTopic() { 
+        return buildTopic(FINISH_FAIL.getTopic()); 
+    }
+    @Bean public NewTopic productValidationSuccessTopic() { 
+        return buildTopic(PRODUCT_VALIDATION_SUCCESS.getTopic()); 
+    }
+    @Bean public NewTopic productValidationFailTopic() { 
+        return buildTopic(PRODUCT_VALIDATION_FAIL.getTopic()); 
+    }
+    @Bean public NewTopic paymentSuccessTopic() { 
+        return buildTopic(PAYMENT_SUCCESS.getTopic()); 
+    }
+    @Bean public NewTopic paymentFailTopic() { 
+        return buildTopic(PAYMENT_FAIL.getTopic()); 
+    }
+    @Bean public NewTopic inventorySuccessTopic() { 
+        return buildTopic(INVENTORY_SUCCESS.getTopic()); 
+    }
+    @Bean public NewTopic inventoryFailTopic() { 
+        return buildTopic(INVENTORY_FAIL.getTopic()); 
+    }
+    @Bean public NewTopic notifyEndingTopic() { 
+        return buildTopic(NOTIFY_ENDING.getTopic()); 
+    }
+}
