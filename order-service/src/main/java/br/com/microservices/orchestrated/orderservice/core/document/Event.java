@@ -18,5 +18,5 @@ public class Event {
     private String source;
     private String status;
     private List<History> eventHistory;
-    private LocalDateTime createdAt
+    private LocalDateTime createdAt;
 }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 
-import br.com.microservices.orchestrated.orderservice.core.dto.Event;
+import br.com.microservices.orchestrated.orderservice.core.document.Event;
 
 @Component
 @AllArgsConstructor

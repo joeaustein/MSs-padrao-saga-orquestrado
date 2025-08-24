@@ -1,7 +1,9 @@
 package br.com.microservices.orchestrated.orderservice.config.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
-
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 @ControllerAdvice
 public class ExceptionGlobalHandler {
     @ExceptionHandler(ValidationException.class)
