@@ -3,7 +3,7 @@ package br.com.microservices.orchestrated.orderservice.core.controller;
 import br.com.microservices.orchestrated.orderservice.core.service.OrderService;
 import br.com.microservices.orchestrated.orderservice.core.dto.OrderRequest;
 import br.com.microservices.orchestrated.orderservice.core.document.Order;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
