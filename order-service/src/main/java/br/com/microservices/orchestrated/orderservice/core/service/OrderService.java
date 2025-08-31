@@ -5,13 +5,15 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
-import org.w3c.dom.events.Event;
-
 import br.com.microservices.orchestrated.orderservice.core.repository.OrderRepository;
 import br.com.microservices.orchestrated.orderservice.core.utils.JsonUtil;
 import br.com.microservices.orchestrated.orderservice.core.document.Order;
+import br.com.microservices.orchestrated.orderservice.core.document.Event;
 import br.com.microservices.orchestrated.orderservice.core.dto.OrderRequest;
 import br.com.microservices.orchestrated.orderservice.core.producer.SagaProducer;
+import br.com.microservices.orchestrated.orderservice.core.service.EventService;
+import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Service
 @AllArgsConstructor

@@ -2,6 +2,7 @@ package br.com.microservices.orchestrated.orderservice.core.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import nonapi.io.github.classgraph.json.Id;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "event")
