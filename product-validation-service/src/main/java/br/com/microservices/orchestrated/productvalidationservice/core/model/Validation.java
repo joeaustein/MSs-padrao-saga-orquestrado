@@ -28,10 +28,10 @@ public class Validation {
     private Integer id;
 
     @Column(nullable = false)
-    private String orderID; 
+    private String orderId; 
 
     @Column(nullable = false)
-    private String transactionID; 
+    private String transactionId; 
 
     @Column(nullable = false)
     private boolean success;
