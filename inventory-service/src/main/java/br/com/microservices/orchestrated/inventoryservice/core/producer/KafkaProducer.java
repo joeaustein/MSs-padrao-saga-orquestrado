@@ -1,16 +1,16 @@
-package br.com.microservices.orchestrated.productvalidationservice.core.producer;
+package br.com.microservices.orchestrated.inventoryservice.core.producer;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import br.com.microservices.orchestrated.productvalidationservice.config.kafka.KafkaConfig;
+import br.com.microservices.orchestrated.inventoryservice.config.kafka.KafkaConfig;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SagaProducer {
+public class KafkaProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Value("${spring.kafka.topic.orchestrator}")

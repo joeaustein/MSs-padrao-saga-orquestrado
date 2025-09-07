@@ -10,7 +10,7 @@ import br.com.microservices.orchestrated.orderservice.core.utils.JsonUtil;
 import br.com.microservices.orchestrated.orderservice.core.document.Order;
 import br.com.microservices.orchestrated.orderservice.core.document.Event;
 import br.com.microservices.orchestrated.orderservice.core.dto.OrderRequest;
-import br.com.microservices.orchestrated.orderservice.core.producer.SagaProducer;
+import br.com.microservices.orchestrated.orderservice.core.producer.KafkaProducer;
 import br.com.microservices.orchestrated.orderservice.core.service.EventService;
 import java.time.LocalDateTime;
 import java.time.Instant;
@@ -22,7 +22,7 @@ public class OrderService {
     private static final String TRANSACTION_ID_PATTERN = "%s_%s";
 
     private final EventService eventService;
-    private final SagaProducer producer;
+    private final KafkaProducer producer;
     private final JsonUtil jsonUtil;
     private final OrderRepository repository;
 

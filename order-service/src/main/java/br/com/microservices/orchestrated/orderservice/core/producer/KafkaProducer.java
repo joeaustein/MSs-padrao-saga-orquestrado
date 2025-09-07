@@ -10,7 +10,7 @@ import br.com.microservices.orchestrated.orderservice.config.kafka.KafkaConfig;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SagaProducer {
+public class KafkaProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Value("${spring.kafka.topic.start-saga}")
